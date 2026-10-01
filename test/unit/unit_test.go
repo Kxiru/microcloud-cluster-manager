@@ -20,6 +20,8 @@ var tests = []types.UnitTest{
 	testOIDCLogin_IgnoresStaleLoginID,
 	testClusterLink_RequiredPermissions_UnsupportedType,
 	testTunnel_CheckPermissions,
+	testMtlsAuthenticator_CacheStartsExpired,
+	testCertificatesCache_RebuildSkippedWhenFresh,
 }
 
 func TestUnit(t *testing.T) {
