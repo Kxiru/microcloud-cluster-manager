@@ -9,14 +9,14 @@ import { useSearchParams } from "react-router-dom";
 import { paramsFromSearchData } from "util/searchAndFilter";
 import {
   instanceStatuses,
-  nodeStatuses,
+  memberStatuses,
   usagePercentiles,
 } from "util/clusterFilter";
 
 export const QUERY = "query";
 export const NAME = "name";
 export const INSTANCE_STATUS = "instance-status";
-export const NODE_STATUS = "node-status";
+export const MEMBER_STATUS = "member-status";
 export const MEMORY_USAGE = "memory-usage";
 export const POOL_USAGE = "pool-usage";
 
@@ -24,7 +24,7 @@ const QUERY_PARAMS = [
   QUERY,
   NAME,
   INSTANCE_STATUS,
-  NODE_STATUS,
+  MEMBER_STATUS,
   MEMORY_USAGE,
   POOL_USAGE,
 ];
@@ -35,16 +35,16 @@ const ClusterSearchFilter: FC = () => {
   const searchAndFilterData: SearchAndFilterData[] = [
     {
       id: 1,
-      heading: "Instance status",
+      heading: "Has at least 1 instance with status:",
       chips: instanceStatuses.map((status) => {
         return { lead: INSTANCE_STATUS, value: status };
       }),
     },
     {
       id: 2,
-      heading: "Node status",
-      chips: nodeStatuses.map((status) => {
-        return { lead: NODE_STATUS, value: status };
+      heading: "Has at least 1 member with status:",
+      chips: memberStatuses.map((status) => {
+        return { lead: MEMBER_STATUS, value: status };
       }),
     },
     {

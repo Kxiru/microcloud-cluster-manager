@@ -102,7 +102,7 @@ const ClusterDetail: FC = () => {
                 />,
                 <ClusterDetailMemberGraph
                   cluster={cluster}
-                  key="cluster-node-graph"
+                  key="cluster-member-graph"
                 />,
                 <ClusterDetailInstanceGraph
                   cluster={cluster}
