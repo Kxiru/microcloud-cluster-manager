@@ -9,7 +9,7 @@ import NotificationRow from "components/NotificationRow";
 import ClusterSearchFilter, {
   INSTANCE_STATUS,
   MEMORY_USAGE,
-  NODE_STATUS,
+  MEMBER_STATUS,
   POOL_USAGE,
   QUERY,
 } from "pages/clusters/ClusterSearchFilter";
@@ -26,7 +26,7 @@ import {
 } from "util/clusterFilter";
 import type {
   ClusterInstanceStatus,
-  ClusterNodeStatus,
+  ClusterMemberStatus,
   ClusterPercentiles,
 } from "types/cluster";
 import EnrollClusterModal from "pages/clusters/EnrollClusterModal";
@@ -101,7 +101,7 @@ const ClusterList: FC = () => {
     instanceStatuses: searchParams.getAll(
       INSTANCE_STATUS,
     ) as ClusterInstanceStatus[],
-    nodeStatuses: searchParams.getAll(NODE_STATUS) as ClusterNodeStatus[],
+    memberStatuses: searchParams.getAll(MEMBER_STATUS) as ClusterMemberStatus[],
     memoryUsage: toNumericUsagePercentiles(
       searchParams.getAll(MEMORY_USAGE),
     ) as ClusterPercentiles[],
@@ -127,9 +127,9 @@ const ClusterList: FC = () => {
     }
 
     if (
-      //Search by Clusters with more than one node having a particular status
-      filters.nodeStatuses.length > 0 &&
-      !hasAllMatchingStatuses(filters.nodeStatuses, item.member_statuses)
+      //Search by Clusters with more than one member having a particular status
+      filters.memberStatuses.length > 0 &&
+      !hasAllMatchingStatuses(filters.memberStatuses, item.member_statuses)
     ) {
       return false;
     }
