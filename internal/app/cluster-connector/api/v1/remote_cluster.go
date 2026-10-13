@@ -699,6 +699,8 @@ func remoteClusterLinksPost(rc types.RouteConfig) types.EndpointHandler {
 		}
 
 		if pendingLinkResponse.Status < http.StatusOK || pendingLinkResponse.Status >= http.StatusMultipleChoices {
+			logger.Log.Errorw("Failed to create the pending cluster link", "error", err)
+			pendingLinkResponse.Status = http.StatusInternalServerError
 			writeResponse(w, *pendingLinkResponse)
 			return nil
 		}
@@ -737,6 +739,10 @@ func remoteClusterLinksPost(rc types.RouteConfig) types.EndpointHandler {
 
 			// The link only exists as a pending link on the source cluster, remove it so the operation can be retried.
 			deletePendingClusterLink(rc, r, remoteClusterName, sourceLinkName)
+
+			targetLinkResponse.Status = http.StatusInternalServerError
+			writeResponse(w, *targetLinkResponse)
+			return nil
 		}
 
 		writeResponse(w, *targetLinkResponse)
