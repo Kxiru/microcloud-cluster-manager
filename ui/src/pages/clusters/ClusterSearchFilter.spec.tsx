@@ -1,7 +1,10 @@
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { MemoryRouter, useLocation } from "react-router-dom";
-import ClusterSearchFilter from "./ClusterSearchFilter";
+import ClusterSearchFilter, {
+  MEMBER_STATUS,
+  QUERY,
+} from "./ClusterSearchFilter";
 
 describe("ClusterSearchFilter", () => {
   beforeAll(() => {
@@ -23,7 +26,9 @@ describe("ClusterSearchFilter", () => {
     act(() => {
       root.render(
         <MemoryRouter
-          initialEntries={["/ui/clusters?query=prod&node-status=Online"]}
+          initialEntries={[
+            `/ui/clusters?${QUERY}=prod&${MEMBER_STATUS}=Online`,
+          ]}
         >
           <ClusterSearchFilter />
           <LocationSpy />
@@ -31,7 +36,7 @@ describe("ClusterSearchFilter", () => {
       );
     });
 
-    expect(search).toBe("?query=prod&node-status=Online");
+    expect(search).toBe(`?${QUERY}=prod&${MEMBER_STATUS}=Online`);
 
     act(() => {
       root.unmount();
